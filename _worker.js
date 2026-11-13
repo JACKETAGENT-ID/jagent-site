@@ -72,6 +72,7 @@ function overlaySvgFor(id, base) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1600">
 <defs>${filterDef}<linearGradient id="band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.82"/></linearGradient></defs>
 <image href="${base}/img/${d.file}" x="0" y="0" width="1600" height="1600"${filter}/>
+<g transform="translate(800 620)" fill="#F0B90B" opacity="0.96"><polygon points="0,-36 36,0 0,36 -36,0"/><polygon points="0,-88 20,-68 0,-48 -20,-68"/><polygon points="0,48 20,68 0,88 -20,68"/><polygon points="-88,0 -68,-20 -48,0 -68,20"/><polygon points="48,0 68,-20 88,0 68,20"/><polygon points="47,-57 57,-47 47,-37 37,-47"/><polygon points="47,37 57,47 47,57 37,47"/><polygon points="-47,37 -37,47 -47,57 -57,47"/><polygon points="-47,-57 -37,-47 -47,-37 -57,-47"/></g>
 <rect x="0" y="1230" width="1600" height="370" fill="url(#band)"/>
 <text x="72" y="1470" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="900" letter-spacing="10" fill="#ffffff">JAGENT</text>
 <text x="76" y="1536" font-family="Arial, Helvetica, sans-serif" font-size="40" letter-spacing="7" fill="#cfd3d8">BNB CHAIN · AGENT ID</text>
