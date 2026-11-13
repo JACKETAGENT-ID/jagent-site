@@ -1,6 +1,6 @@
 # JAGENT — 官网
 
-https://jagent.pages.dev 的静态站点 + Pages Worker（发售页面、`agent.json`、`llms.txt` 与 NFT 元数据/图片的唯一来源）。
+https://jacketagent.pages.dev 的静态站点 + Pages Worker（发售页面、`agent.json`、`llms.txt` 与 NFT 元数据/图片的唯一来源）。
 
 - `index.html` — 发售页面（实时从 NFT 合约读取发售状态）
 - `agent.json` / `llms.txt` — 供智能体读取的机器可读铸造说明

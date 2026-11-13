@@ -81,7 +81,7 @@ function overlaySvgFor(id, base) {
 </svg>`;
 }
 
-const BASE = 'https://jagent.pages.dev';
+const BASE = 'https://jacketagent.pages.dev';
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);

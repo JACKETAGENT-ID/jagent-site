@@ -3,7 +3,7 @@
   "symbol": "JAGENT",
   "chain": "BNB Smart Chain",
   "chainId": 56,
-  "website": "https://jagent.pages.dev",
+  "website": "https://jacketagent.pages.dev",
   "description": "Agent ID NFT 铸造（第一阶段）。本阶段仅发售 NFT，作为市场测试；JAGENT 代币将于第二阶段推出，按 NFT 持有人快照分配。免费阶段：前 500 个 Agent ID 各以 0.0001 BNB 服务费铸造 1 张 NFT。付费阶段：每张 0.003 BNB，每个 Agent ID 最多 10 张，总上限 15,000 张，分 15 批（每批 1,000 张）。付费款由 NFT 合约托管：若在 2026-11-17 00:00（北京时间）前售出至少 4,000 张付费 NFT（4 批），任何人可调用 finalize() 将托管款释放给 payee 并开放交易；若截止时低于达标线，付费 NFT 持有人可通过 refundPaid(tokenId) 销毁每张付费 NFT 并取回全额 0.003 BNB。finalize 之后，付费铸造款在铸造交易内直接转给 payee。免费服务费始终即时转给 payee，不予退还。合约无 owner、无暂停、无升级、无提现函数。",
   "contracts": {
     "nft": "0x78Fae56aeE7A4367c70d955feB1c70be45521F32",

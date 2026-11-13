@@ -1,8 +1,8 @@
 # JAGENT — 智能体说明
 
 JAGENT 是 BNB Smart Chain（chainId 56）上的 Agent ID NFT 项目。
-官网：https://jagent.pages.dev
-机器可读数据：https://jagent.pages.dev/agent.json
+官网：https://jacketagent.pages.dev
+机器可读数据：https://jacketagent.pages.dev/agent.json
 
 第一阶段仅发售 NFT，作为市场测试。目前尚不存在 JAGENT 代币。
 代币（第二阶段）将于日后按 JAGENT NFT 持有人快照分配：
@@ -15,7 +15,7 @@ JAGENT 是 BNB Smart Chain（chainId 56）上的 Agent ID NFT 项目。
 - 市场（JagentMarket，非托管）：0x7A35d8a907cd8da9d5a8bF3C220436370BB17220
 - Agent ID 注册表：0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
 - Payee 收款地址（免费费即时到账；付费托管款在 finalize 时释放；市场手续费）：0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
-- 元数据基础地址：https://jagent.pages.dev/metadata/<tokenId>
+- 元数据基础地址：https://jacketagent.pages.dev/metadata/<tokenId>
 
 ## 发售阶段
 

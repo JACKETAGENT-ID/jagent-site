@@ -592,7 +592,7 @@
         <span class="agent-label">Agent 指令文件</span>
       </div>
       <div class="agent-body">
-        <p>AI Agent 可以直接读取链上状态并调用合约铸造，无需经过本页。状态查询：<code>status()</code>；免费铸造：<code>mintFree()</code>，金额精确 <b>0.0001 BNB</b>；付费铸造：<code>mint(uint256)</code>，金额 <b>0.003 BNB × 数量</b>。两项铸造均<b>需持有 Agent ID</b>，资格与上限由合约校验。NFT 元数据端点：<code>https://jagent.pages.dev/metadata/&lt;tokenId&gt;</code>。</p>
+        <p>AI Agent 可以直接读取链上状态并调用合约铸造，无需经过本页。状态查询：<code>status()</code>；免费铸造：<code>mintFree()</code>，金额精确 <b>0.0001 BNB</b>；付费铸造：<code>mint(uint256)</code>，金额 <b>0.003 BNB × 数量</b>。两项铸造均<b>需持有 Agent ID</b>，资格与上限由合约校验。NFT 元数据端点：<code>https://jacketagent.pages.dev/metadata/&lt;tokenId&gt;</code>。</p>
         <div class="agent-links">
           <a class="btn secondary btn-link" href="#agent-json" data-nav="agentjson">/agent.json</a>
           <a class="btn secondary btn-link" href="#llms-txt" data-nav="llms">/llms.txt</a>
@@ -638,7 +638,7 @@
       </details>
       <details>
         <summary>NFT 的元数据在哪里？</summary>
-        <p>合约的 baseURI 指向 https://jagent.pages.dev/metadata/&lt;tokenId&gt;，每个 tokenId 对应一份标准 ERC-721 元数据 JSON。本页的 /metadata 视图给出了通用模板与示例。</p>
+        <p>合约的 baseURI 指向 https://jacketagent.pages.dev/metadata/&lt;tokenId&gt;，每个 tokenId 对应一份标准 ERC-721 元数据 JSON。本页的 /metadata 视图给出了通用模板与示例。</p>
       </details>
     </div>
   </section>
@@ -694,7 +694,7 @@
 
       <div class="wp-sec">
         <h2><span class="no">05</span>元数据</h2>
-        <p>NFT 合约的 baseURI 为 <code>https://jagent.pages.dev/metadata/</code>，每个 tokenId 的元数据位于 <code>https://jagent.pages.dev/metadata/&lt;tokenId&gt;</code>，为标准 ERC-721 JSON（name、description、image、attributes）。通用模板见本页 /metadata 视图。</p>
+        <p>NFT 合约的 baseURI 为 <code>https://jacketagent.pages.dev/metadata/</code>，每个 tokenId 的元数据位于 <code>https://jacketagent.pages.dev/metadata/&lt;tokenId&gt;</code>，为标准 ERC-721 JSON（name、description、image、attributes）。通用模板见本页 /metadata 视图。</p>
       </div>
 
       <div class="wp-sec">
@@ -762,7 +762,7 @@
     <div class="wp">
       <span class="badge"><i></i> ERC-721 元数据</span>
       <h1>/metadata</h1>
-      <p class="wp-lead">NFT 合约的 baseURI 指向 <code>https://jagent.pages.dev/metadata/</code>：每个 tokenId 对应 <code>https://jagent.pages.dev/metadata/&lt;tokenId&gt;</code> 一份标准元数据 JSON。以下为通用模板 —— 输入任意 tokenId 即可预览该 tokenId 的元数据内容。</p>
+      <p class="wp-lead">NFT 合约的 baseURI 指向 <code>https://jacketagent.pages.dev/metadata/</code>：每个 tokenId 对应 <code>https://jacketagent.pages.dev/metadata/&lt;tokenId&gt;</code> 一份标准元数据 JSON。以下为通用模板 —— 输入任意 tokenId 即可预览该 tokenId 的元数据内容。</p>
       <div class="meta-demo">
         <label for="metaTokenId" style="font-weight:700">tokenId</label>
         <input id="metaTokenId" type="number" min="1" step="1" value="1" />
@@ -771,7 +771,7 @@
       <div class="agent" style="margin-top:20px">
         <div class="agent-bar">
           <div class="win" aria-hidden="true"><span></span><span></span><span></span></div>
-          <span class="agent-label" id="metaEndpointLabel">https://jagent.pages.dev/metadata/1</span>
+          <span class="agent-label" id="metaEndpointLabel">https://jacketagent.pages.dev/metadata/1</span>
         </div>
         <pre class="fileview" id="metaJsonText"></pre>
         <div class="file-actions">
@@ -793,8 +793,8 @@
         <div><span class="k">市场合约 JagentMarket&nbsp;&nbsp;</span><a class="addr" href="https://bscscan.com/address/0x7A35d8a907cd8da9d5a8bF3C220436370BB17220" target="_blank" rel="noopener">0x7A35d8a907cd8da9d5a8bF3C220436370BB17220</a></div>
         <div><span class="k">Payee 金库&nbsp;&nbsp;</span><span class="addr">0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3</span></div>
         <div><span class="k">代币合约 JAGENT&nbsp;&nbsp;</span>第二阶段创建 · 尚未部署（等待快照）</div>
-        <div><span class="k">元数据&nbsp;&nbsp;</span>jagent.pages.dev/metadata/&lt;tokenId&gt;</div>
-        <div><span class="k">网站&nbsp;&nbsp;</span>jagent.pages.dev</div>
+        <div><span class="k">元数据&nbsp;&nbsp;</span>jacketagent.pages.dev/metadata/&lt;tokenId&gt;</div>
+        <div><span class="k">网站&nbsp;&nbsp;</span>jacketagent.pages.dev</div>
       </div>
     </div>
     <p class="risk"><b>风险提示：</b>第一阶段仅为 NFT 发售；JAGENT 代币尚未创建，任何自称 JAGENT 代币的合约均非官方。加密货币与 NFT 价值可能上涨、下跌直至归零；请勿投入无法承受损失的资金，交易前务必在本页核对合约地址。第二阶段快照分配为计划事项，以届时公布为准。</p>
@@ -833,7 +833,7 @@
   var AGENT_JSON = {
     name: "JAGENT",
     description: "JAGENT 第一阶段为 NFT 发售，面向 Binance Agent ID 持有人，先以 NFT 测试市场；JAGENT 代币为第二阶段事项，尚未创建，将按 NFT 持有人快照分配。",
-    website: "https://jagent.pages.dev",
+    website: "https://jacketagent.pages.dev",
     chain: { name: "BNB Smart Chain", chainId: 56 },
     contracts: {
       nft: NFT_CONTRACT,
@@ -889,7 +889,7 @@
         remainder: "其余按公开议程：社区与空投 75,000,000,000、市场与合作 50,000,000,000、战略储备 40,000,000,000、团队与运营 40,000,000,000（锁定/线性解锁）；代币不设销毁，LP 全部销毁"
       }
     },
-    metadata: "https://jagent.pages.dev/metadata/<tokenId>"
+    metadata: "https://jacketagent.pages.dev/metadata/<tokenId>"
   };
   var AGENT_JSON_TEXT = JSON.stringify(AGENT_JSON, null, 2);
 
@@ -909,7 +909,7 @@
     "- 付费阶段: 免费阶段结束后自动开启。调用 mint(uint256)，每张 0.003 BNB (3000000000000000 wei)，总量 15,000 张，每个 Agent ID 累计最多 10 张，需持有 Agent ID。付费款由合约托管：2026-11-17 00:00 北京时间前售出达 4,000 张可 finalize() 释放给 payee 并解锁交易；未达标则 refundPaid(tokenId) 销毁 NFT 退回整整 0.003 BNB。付费 NFT 在 finalize 前不可转让。",
     "- 状态查询: 对 NFT 合约调用 status()，返回 (phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining, floorPaid, deadline, escrowed, finalized, refundMode)；phase: 0=未开始, 1=免费阶段, 2=付费阶段, 3=售罄, 4=未达标（退款开放）。",
     "- 收入去向: 免费费在交易内直达 payee；付费款由合约托管，达标后 finalize() 释放给 payee，未达标可 refundPaid() 全额退款；无分成。",
-    "- NFT 元数据: https://jagent.pages.dev/metadata/<tokenId>",
+    "- NFT 元数据: https://jacketagent.pages.dev/metadata/<tokenId>",
     "",
     "## NFT 市场",
     "",
@@ -936,8 +936,8 @@
     return {
       name: "JAGENT #" + id,
       description: "JAGENT NFT — 第一阶段发售的 Agent ID 专属 NFT。第二阶段 JAGENT 代币将按持有人快照分配：NFT 的分配权益为：免费铸造每张 1,500万 JAGENT，付费铸造第1批每张 5,000万 JAGENT（每批递减 5%，计划）。",
-      image: "https://jagent.pages.dev/metadata/image/" + id,
-      external_url: "https://jagent.pages.dev",
+      image: "https://jacketagent.pages.dev/metadata/image/" + id,
+      external_url: "https://jacketagent.pages.dev",
       attributes: [
         { trait_type: "阶段", value: "第一阶段 · NFT" },
         { trait_type: "快照权益（计划）", value: "免费 1,500万 / 付费第1批 5,000万（每批 −5%）JAGENT" },
@@ -952,7 +952,7 @@
   function renderMeta() {
     var v = parseInt($("metaTokenId").value, 10);
     if (!v || v < 1) v = 1;
-    $("metaEndpointLabel").textContent = "https://jagent.pages.dev/metadata/" + v;
+    $("metaEndpointLabel").textContent = "https://jacketagent.pages.dev/metadata/" + v;
     $("metaJsonText").textContent = JSON.stringify(metadataFor(v), null, 2);
   }
   $("btnMetaPreview").addEventListener("click", renderMeta);
