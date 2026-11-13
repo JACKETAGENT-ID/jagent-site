@@ -41,7 +41,7 @@
   },
   "phase2Token": {
     "status": "not yet created",
-    "distribution": "By snapshot of JAGENT NFT holders at token launch. Planned entitlement: 15,000,000 JAGENT per free-minted NFT; paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 5% of the batch-1 amount (2,500,000) per batch, batch 15 = 15,000,000 each. Planned supply 1,000,000,000,000 fixed: free-mint NFTs 7,500,000,000 (500 x 15M), paid NFTs 487,500,000,000 (15 batches), liquidity pool 505,000,000,000 (entire remainder; no burn)."
+    "distribution": "By snapshot of JAGENT NFT holders at token launch. Planned entitlement: 15,000,000 JAGENT per free-minted NFT; paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 5% of the batch-1 amount (2,500,000) per batch, batch 15 = 15,000,000 each. Planned supply 1,000,000,000,000 fixed: free-mint NFTs 7,500,000,000 (500 x 15M), paid NFTs 487,500,000,000 (15 batches), remaining 505,000,000,000 allocated by published agenda: 200,000,000,000 initial PancakeSwap liquidity (LP burned), 100,000,000,000 liquidity ladder (max 25,000,000,000/month from month 2, LP burned), 75,000,000,000 community & airdrops (12-month vesting), 50,000,000,000 marketing & partnerships (6-12-month vesting), 40,000,000,000 strategic/CEX reserve (locked until a real need), 40,000,000,000 team & operations (3-month cliff + 12-month linear vesting); no token burn."
   },
   "safety": "Minting never requires approvals, permits, or allowances. The mint value must match exactly or the contract reverts. Listing on the market requires the seller's own approval of the market contract for that NFT."
 }

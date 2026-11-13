@@ -424,7 +424,7 @@
         <ul>
           <li><span><b>需持有 Agent ID</b> —— 资格由合约强制校验。</span></li>
           <li><span>名额共 <b>15,000</b> 张；<b>每个 Agent ID 累计最多 10 张</b>（合约强制）。</span></li>
-          <li><span>调用 <b>mintPaid(数量)</b>，金额为 <b>0.003 BNB × 数量</b>（每张 3000000000000000 wei），另加链上 Gas。</span></li>
+          <li><span>调用 <b>mint(数量)</b>，金额为 <b>0.003 BNB × 数量</b>（每张 3000000000000000 wei），另加链上 Gas。</span></li>
           <li><span>免费阶段结束后自动开启，无需等待人工操作。</span></li>
         </ul>
         <div class="qty" aria-label="选择付费铸造数量">
@@ -436,7 +436,7 @@
           <button type="button" id="qtyPlus" aria-label="增加数量">+</button>
         </div>
         <div class="cta">
-          <button class="btn" type="button" id="btnMintPaid">付费铸造 — mintPaid()</button>
+          <button class="btn" type="button" id="btnMintPaid">付费铸造 — mint()</button>
           <p class="cta-sub" id="paidCtaSub">剩余名额读取中</p>
         </div>
       </article>
@@ -457,12 +457,12 @@
       <li>
         <span class="num">02</span>
         <h3>付费阶段：15,000 张</h3>
-        <p>免费阶段结束后自动开启付费铸造：每张 <b>0.003 BNB</b>，调用 <b>mintPaid(数量)</b> 一次可铸 1–10 张，每个 Agent ID 累计最多 10 张，总上限 15,000 张。</p>
+        <p>免费阶段结束后自动开启付费铸造：每张 <b>0.003 BNB</b>，调用 <b>mint(数量)</b> 一次可铸 1–10 张，每个 Agent ID 累计最多 10 张，总上限 15,000 张。</p>
       </li>
       <li>
         <span class="num">03</span>
-        <h3>收入直达金库</h3>
-        <p>全部铸造收入（免费费与付费款）<b>在交易内直接转入 payee 金库地址</b> <code>0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3</code> —— <b>没有流动性池分成、没有推荐分成、没有合约托管资金</b>。合约不设提款通道，因为资金从不滞留合约。</p>
+        <h3>收入与托管保障</h3>
+        <p>免费铸造费<b>在交易内直接转入 payee 金库地址</b> <code>0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3</code>；<b>付费铸造款先由合约托管</b> —— 截止时间（2026-11-17 00:00 北京时间）前付费售出达到 4,000 张，任何人可调用 finalize() 将托管款全额释放给 payee 并开启交易；若未达标，铸造永久关闭，每位付费持有人可调用 refundPaid(tokenId) 销毁 NFT 并取回整整 0.003 BNB。没有流动性池分成、没有推荐分成。</p>
       </li>
       <li>
         <span class="num">04</span>
@@ -532,9 +532,9 @@
         <tbody>
           <tr><td>免费 NFT 持有人（快照）</td><td class="num">75亿</td><td>500 张 × 1,500万 / 张</td></tr>
           <tr><td>付费 NFT 持有人（快照）</td><td class="num">4,875亿</td><td>15,000 张 · 15 批 × 1,000 张：第1批 5,000万 / 张，每批递减 5%（250万），第15批 1,500万 / 张</td></tr>
-          <tr><td>流动性池</td><td class="num">5,050亿</td><td>第二阶段建池时注入</td></tr>
-          <tr><td>合计分配上限</td><td class="num">855,000,000,000</td><td>占总供应量 85.5%（按 NFT 全额售出计）</td></tr>
-          <tr><td>剩余部分</td><td class="num">0</td><td>剩余部分全额进入流动性池，不设销毁</td></tr>
+          <tr><td>初始流动性（PancakeSwap）</td><td class="num">2,000亿</td><td>TGE 建池，LP 全部销毁</td></tr><tr><td>流动性阶梯（分批加深）</td><td class="num">1,000亿</td><td>第 2 个月起，每月最多 250亿，LP 销毁</td></tr><tr><td>社区与空投</td><td class="num">750亿</td><td>12 个月线性解锁：任务、活动、持有人奖励</td></tr><tr><td>市场与合作</td><td class="num">500亿</td><td>6–12 个月解锁</td></tr><tr><td>战略储备 / CEX</td><td class="num">400亿</td><td>全额锁定，有真实需求（上所/做市）时才动用</td></tr><tr><td>团队与运营</td><td class="num">400亿</td><td>3 个月悬崖 + 12 个月线性解锁</td></tr>
+          <tr><td>合计分配上限</td><td class="num">1,000,000,000,000</td><td>占总供应量 100%（按 NFT 全额售出计）</td></tr>
+          <tr><td>销毁说明</td><td class="num">—</td><td>代币不设销毁；LP 在每次建池/加池时全部销毁</td></tr>
           <tr><td>总供应量</td><td class="num">1万亿</td><td>固定供应 1T，第二阶段创建时铸造</td></tr>
         </tbody>
       </table>
@@ -592,7 +592,7 @@
         <span class="agent-label">Agent 指令文件</span>
       </div>
       <div class="agent-body">
-        <p>AI Agent 可以直接读取链上状态并调用合约铸造，无需经过本页。状态查询：<code>status()</code>；免费铸造：<code>mintFree()</code>，金额精确 <b>0.0001 BNB</b>；付费铸造：<code>mintPaid(uint256)</code>，金额 <b>0.003 BNB × 数量</b>。两项铸造均<b>需持有 Agent ID</b>，资格与上限由合约校验。NFT 元数据端点：<code>https://jagent.pages.dev/metadata/&lt;tokenId&gt;</code>。</p>
+        <p>AI Agent 可以直接读取链上状态并调用合约铸造，无需经过本页。状态查询：<code>status()</code>；免费铸造：<code>mintFree()</code>，金额精确 <b>0.0001 BNB</b>；付费铸造：<code>mint(uint256)</code>，金额 <b>0.003 BNB × 数量</b>。两项铸造均<b>需持有 Agent ID</b>，资格与上限由合约校验。NFT 元数据端点：<code>https://jagent.pages.dev/metadata/&lt;tokenId&gt;</code>。</p>
         <div class="agent-links">
           <a class="btn secondary btn-link" href="#agent-json" data-nav="agentjson">/agent.json</a>
           <a class="btn secondary btn-link" href="#llms-txt" data-nav="llms">/llms.txt</a>
@@ -618,15 +618,15 @@
       </details>
       <details>
         <summary>付费铸造的规则是什么？</summary>
-        <p>免费阶段结束后自动开启。每张 0.003 BNB，通过页面选择 1–10 张后调用 mintPaid(数量)，金额为 0.003 BNB × 数量。付费名额共 15,000 张，每个 Agent ID 累计最多 10 张（包含此前已铸造的数量），上限由合约强制。</p>
+        <p>免费阶段结束后自动开启。每张 0.003 BNB，通过页面选择 1–10 张后调用 mint(数量)，金额为 0.003 BNB × 数量。付费名额共 15,000 张，每个 Agent ID 累计最多 10 张（包含此前已铸造的数量），上限由合约强制。</p>
       </details>
       <details>
         <summary>铸造收入去哪了？有分成或资金池吗？</summary>
-        <p>没有。全部铸造收入在铸造交易内直接转入 payee 金库 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3 —— 没有流动性池分成、没有推荐分成，资金不滞留在合约内。</p>
+        <p>免费费在铸造交易内直接转入 payee 金库 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3；付费款先由合约托管：达标（截止前售出 4,000 张）后 finalize() 全额释放给 payee，未达标则持有人 refundPaid() 取回整整 0.003 BNB。没有流动性池分成、没有推荐分成。</p>
       </details>
       <details>
         <summary>JAGENT 代币现在能买吗？</summary>
-        <p>不能 —— 代币尚未创建，任何自称 JAGENT 代币的合约都不是官方的。代币属于第二阶段：将先对 NFT 持有人做快照，再按快照分配（免费 NFT 每张 1,500万 JAGENT、付费 NFT 第1批每张 5,000万 JAGENT（每批递减 5%）的分配权益），分配概念与原定方案一致（总供应量 1T 固定；免费 NFT 对应 75亿、付费 NFT 对应 4,875亿、流动性池 5,050亿，剩余部分全额进入流动性池）。</p>
+        <p>不能 —— 代币尚未创建，任何自称 JAGENT 代币的合约都不是官方的。代币属于第二阶段：将先对 NFT 持有人做快照，再按快照分配（免费 NFT 每张 1,500万 JAGENT、付费 NFT 第1批每张 5,000万 JAGENT（每批递减 5%）的分配权益），总供应量 1T 固定；免费 NFT 对应 75亿、付费 NFT 对应 4,875亿；其余 5,050亿按公开议程分配：初始流动性 2,000亿（建池时 LP 全部销毁）、流动性阶梯 1,000亿、社区与空投 750亿、市场与合作 500亿、战略储备 400亿、团队与运营 400亿。</p>
       </details>
       <details>
         <summary>什么是快照？卖掉 NFT 还能拿到代币分配吗？</summary>
@@ -662,7 +662,7 @@
         <ul>
           <li><b>发售开始</b>：2026年11月15日 00:00（北京时间）。</li>
           <li><b>免费阶段</b>：至 开售后 24 小时（北京时间）或 500 个名额用完为止（先到者为准）。调用 <code>mintFree()</code>，金额精确 0.0001 BNB，每个 Agent ID 限 1 张，<b>需持有 Agent ID</b>。</li>
-          <li><b>付费阶段</b>：免费阶段结束后自动开启。调用 <code>mintPaid(uint256)</code>，每张 0.003 BNB，总上限 15,000 张，每个 Agent ID 累计最多 10 张。</li>
+          <li><b>付费阶段</b>：免费阶段结束后自动开启。调用 <code>mint(uint256)</code>，每张 0.003 BNB，总上限 15,000 张，每个 Agent ID 累计最多 10 张。</li>
           <li><b>NFT 总量上限</b>：15,500 张（500 免费 + 15,000 付费）。</li>
           <li><b>收入去向</b>：全部铸造收入在交易内直接转入 payee <code>0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3</code>，无分成、无托管。</li>
           <li><b>状态查询</b>：合约 <code>status()</code> 实时返回阶段、免费/付费已售、已铸造总量、价格、免费费、开始与免费结束时间及剩余名额；本页每 4 秒轮询一次（多节点竞速取最快响应）。</li>
@@ -683,9 +683,9 @@
             <tbody>
               <tr><td>免费 NFT（快照）</td><td class="num">75亿</td><td>500 张 × 1,500万</td></tr>
               <tr><td>付费 NFT（快照）</td><td class="num">4,875亿</td><td>15,000 张 · 第1批 5,000万，每批 −5%（250万），第15批 1,500万</td></tr>
-              <tr><td>流动性池</td><td class="num">5,050亿</td><td>阶段二建池时注入</td></tr>
-              <tr><td>分配上限合计</td><td class="num">855,000,000,000</td><td>占总供应量 85.5%（NFT 全额售出时）</td></tr>
-              <tr><td>剩余部分</td><td class="num">0</td><td>剩余部分全额进入流动性池，不设销毁</td></tr>
+              <tr><td>初始流动性（PancakeSwap）</td><td class="num">2,000亿</td><td>TGE 建池，LP 全部销毁</td></tr><tr><td>流动性阶梯（分批加深）</td><td class="num">1,000亿</td><td>第 2 个月起，每月最多 250亿，LP 销毁</td></tr><tr><td>社区与空投</td><td class="num">750亿</td><td>12 个月线性解锁：任务、活动、持有人奖励</td></tr><tr><td>市场与合作</td><td class="num">500亿</td><td>6–12 个月解锁</td></tr><tr><td>战略储备 / CEX</td><td class="num">400亿</td><td>全额锁定，有真实需求（上所/做市）时才动用</td></tr><tr><td>团队与运营</td><td class="num">400亿</td><td>3 个月悬崖 + 12 个月线性解锁</td></tr>
+              <tr><td>分配上限合计</td><td class="num">1,000,000,000,000</td><td>占总供应量 100%（NFT 全额售出时）</td></tr>
+              <tr><td>销毁说明</td><td class="num">—</td><td>代币不设销毁；LP 在每次建池/加池时全部销毁</td></tr>
               <tr><td>总供应量</td><td class="num">1万亿</td><td>1T · 固定供应，阶段二创建</td></tr>
             </tbody>
           </table><h3>付费批次权益表（每批 1,000 张，按铸造顺序）</h3><table><tr><td>批次</td><td class="num">每张快照权益</td><td class="num">本批合计</td></tr><tr><td>第1批</td><td class="num">5,000万</td><td class="num">50,000亿</td></tr><tr><td>第2批</td><td class="num">4,750万</td><td class="num">47,500亿</td></tr><tr><td>第3批</td><td class="num">4,500万</td><td class="num">45,000亿</td></tr><tr><td>第4批</td><td class="num">4,250万</td><td class="num">42,500亿</td></tr><tr><td>第5批</td><td class="num">4,000万</td><td class="num">40,000亿</td></tr><tr><td>第6批</td><td class="num">3,750万</td><td class="num">37,500亿</td></tr><tr><td>第7批</td><td class="num">3,500万</td><td class="num">35,000亿</td></tr><tr><td>第8批</td><td class="num">3,250万</td><td class="num">32,500亿</td></tr><tr><td>第9批</td><td class="num">3,000万</td><td class="num">30,000亿</td></tr><tr><td>第10批</td><td class="num">2,750万</td><td class="num">27,500亿</td></tr><tr><td>第11批</td><td class="num">2,500万</td><td class="num">25,000亿</td></tr><tr><td>第12批</td><td class="num">2,250万</td><td class="num">22,500亿</td></tr><tr><td>第13批</td><td class="num">2,000万</td><td class="num">20,000亿</td></tr><tr><td>第14批</td><td class="num">1,750万</td><td class="num">17,500亿</td></tr><tr><td>第15批</td><td class="num">1,500万</td><td class="num">15,000亿</td></tr><tr><td>合计</td><td class="num">—</td><td class="num">4,875亿</td></tr>
@@ -810,7 +810,7 @@
   var BSC_RPC_ENDPOINTS = ["https://bsc-dataseed.bnbchain.org", "https://bsc-dataseed1.defibit.io", "https://bsc-rpc.publicnode.com", "https://bsc-dataseed.ninicoin.io", "https://rpc.ankr.com/bsc"];
   var STATUS_SELECTOR = "0x200d2ed2"; // status()
   var MINTFREE_SELECTOR = "0x8ab53447"; // mintFree()
-  var MINTPAID_SELECTOR = "0x26c7f77c"; // mintPaid(uint256)
+  var MINT_SELECTOR = "0xa0712d68"; // mint(uint256)
   var FREE_FEE_WEI = 100000000000000n; // 0.0001 BNB
   var PRICE_PER_NFT_WEI = 3000000000000000n; // 0.003 BNB
   var FREE_QUOTA = 500;
@@ -848,7 +848,7 @@
       startBeijing: "2026-11-15 00:00 北京时间 (UTC+8)",
       freeEndUnix: FALLBACK_FREE_END,
       freeEndBeijing: "2026-11-16 00:00 北京时间 (UTC+8)",
-      statusFunction: "status() -> (phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining)",
+      statusFunction: "status() -> (phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining, floorPaid, deadline, escrowed, finalized, refundMode)",
       phases: { "0": "未开始", "1": "免费阶段", "2": "付费阶段" },
       free: {
         function: "mintFree()",
@@ -860,15 +860,15 @@
         requiresAgentId: true
       },
       paid: {
-        function: "mintPaid(uint256)",
-        selector: MINTPAID_SELECTOR,
+        function: "mint(uint256)",
+        selector: MINT_SELECTOR,
         pricePerNftWei: PRICE_PER_NFT_WEI.toString(),
         pricePerNftBNB: "0.003",
         quota: PAID_QUOTA,
         maxPerAgentId: 10,
         requiresAgentId: true
       },
-      proceeds: "全部铸造收入在交易内直接转入 payee，无分成、无合约托管"
+      proceeds: "免费费在交易内直达 payee；付费款由合约托管，达标后 finalize() 释放给 payee，未达标可 refundPaid() 全额退款；无分成"
     },
     market: {
       contract: MARKET_CONTRACT,
@@ -881,12 +881,12 @@
       status: "尚未创建",
       totalSupply: "1000000000000",
       distributionMethod: "代币创建前对 NFT 持有人做快照，按快照分配",
-      perNftEntitlement: "30000000",
+      perNftEntitlement: "免费 NFT 每张 15,000,000；付费 NFT 按批次 50,000,000 起、每批递减 2,500,000 至 15,000,000",
       allocationPlan: {
         freeNftHolders: "500 x 15,000,000 = 7,500,000,000",
         paidNftHolders: "15000 mints, 15 batches x 1000: batch 1 = 50,000,000 each, -5% (2,500,000) per batch, batch 15 = 15,000,000 each; total 487,500,000,000",
-        liquidityPool: "505,000,000,000",
-        remainder: "剩余部分全额进入流动性池（5,050亿），不设销毁"
+        liquidityPool: "初始 200,000,000,000（LP 销毁）+ 流动性阶梯 100,000,000,000（LP 销毁）",
+        remainder: "其余按公开议程：社区与空投 75,000,000,000、市场与合作 50,000,000,000、战略储备 40,000,000,000、团队与运营 40,000,000,000（锁定/线性解锁）；代币不设销毁，LP 全部销毁"
       }
     },
     metadata: "https://jagent.pages.dev/metadata/<tokenId>"
@@ -906,9 +906,9 @@
     "- Payee 金库: " + PAYEE,
     "- 发售开始: 2026-11-15 00:00 北京时间 (UTC+8)，unix " + FALLBACK_START,
     "- 免费阶段: 至 2026-11-16 00:00 北京时间 (unix " + FALLBACK_FREE_END + ") 或 500 个名额用完为止。调用 mintFree()，交易金额精确 0.0001 BNB (100000000000000 wei)，每个 Agent ID 限 1 张，需持有 Agent ID。",
-    "- 付费阶段: 免费阶段结束后自动开启。调用 mintPaid(uint256)，每张 0.003 BNB (3000000000000000 wei)，总量 15,000 张，每个 Agent ID 累计最多 10 张，需持有 Agent ID。",
-    "- 状态查询: 对 NFT 合约调用 status()，返回 (phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining)；phase: 0=未开始, 1=免费阶段, 2=付费阶段。",
-    "- 收入去向: 全部铸造收入在交易内直接转入 payee，无分成、无合约托管。",
+    "- 付费阶段: 免费阶段结束后自动开启。调用 mint(uint256)，每张 0.003 BNB (3000000000000000 wei)，总量 15,000 张，每个 Agent ID 累计最多 10 张，需持有 Agent ID。付费款由合约托管：2026-11-17 00:00 北京时间前售出达 4,000 张可 finalize() 释放给 payee 并解锁交易；未达标则 refundPaid(tokenId) 销毁 NFT 退回整整 0.003 BNB。付费 NFT 在 finalize 前不可转让。",
+    "- 状态查询: 对 NFT 合约调用 status()，返回 (phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining, floorPaid, deadline, escrowed, finalized, refundMode)；phase: 0=未开始, 1=免费阶段, 2=付费阶段, 3=售罄, 4=未达标（退款开放）。",
+    "- 收入去向: 免费费在交易内直达 payee；付费款由合约托管，达标后 finalize() 释放给 payee，未达标可 refundPaid() 全额退款；无分成。",
     "- NFT 元数据: https://jagent.pages.dev/metadata/<tokenId>",
     "",
     "## NFT 市场",
@@ -923,7 +923,7 @@
     "- 分配方式: 创建代币前对 NFT 持有人做快照，按快照分配；快照时持有 NFT 才计入，快照后买入不计入。",
     "- NFT 的分配权益: 免费铸造每张 1,500万 JAGENT，付费铸造第1批每张 5,000万 JAGENT（每批递减 5%，按铸造类型分配）。",
     "- 总供应量: 1万亿 (1T) 固定。",
-    "- 分配概念: 免费 NFT 500 x 1,500万 = 75亿；付费 NFT 15,000 x 5,000万 = 4,875亿；流动性池 5,050亿（剩余部分全额进入流动性池，不设销毁）。",
+    "- 分配概念: 免费 NFT 500 x 1,500万 = 75亿；付费 NFT 15,000 x 5,000万 = 4,875亿；其余 5,050亿按公开议程分配：初始流动性 2,000亿（LP 销毁）、流动性阶梯 1,000亿（LP 销毁）、社区与空投 750亿、市场与合作 500亿、战略储备 400亿、团队与运营 400亿；代币不设销毁。",
     "",
     "## 风险",
     "",
@@ -1084,7 +1084,7 @@
     if (bp) {
       var paidOpen = s.phase === 2 && s.paidRemaining > 0;
       bp.disabled = s.live && !paidOpen;
-      bp.textContent = s.phase === 4 ? "付费铸造 — 未达标已关闭（退款开放中）" : s.phase === 2 ? (s.paidRemaining <= 0 && s.live ? "付费铸造 — 已售罄" : "付费铸造 — mintPaid()") : "付费铸造 — 免费阶段结束后开启";
+      bp.textContent = s.phase === 4 ? "付费铸造 — 未达标已关闭（退款开放中）" : s.phase === 2 ? (s.paidRemaining <= 0 && s.live ? "付费铸造 — 已售罄" : "付费铸造 — mint()") : "付费铸造 — 免费阶段结束后开启";
     }
     if ($("paidCtaSub")) $("paidCtaSub").textContent = "付费剩余 " + fmtInt(s.paidRemaining) + " / " + fmtInt(PAID_QUOTA) + " · 每 ID 最多 10 张 · 需持有 Agent ID";
   }
@@ -1125,7 +1125,7 @@
   }
 
   function parseStatus(hex) {
-    // status() 返回顺序：phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining
+    // status() 返回顺序：phase, freeSold, paidSold, minted, price, freeFee, start, freeEnd, freeRemaining, paidRemaining, floorPaid, deadline, escrowed, finalized, refundMode
     var body = hex.slice(2);
     var words = [];
     for (var i = 0; i + 64 <= body.length && words.length < 10; i += 64) {
@@ -1247,10 +1247,10 @@
         data = MINTFREE_SELECTOR;
         value = FREE_FEE_WEI;
       } else {
-        data = MINTPAID_SELECTOR + qty.toString(16).padStart(64, "0");
+        data = MINT_SELECTOR + qty.toString(16).padStart(64, "0");
         value = PRICE_PER_NFT_WEI * BigInt(qty);
       }
-      setTxMsg("正在等待钱包确认…（" + (isFree ? "mintFree() · 0.0001 BNB" : "mintPaid(" + qty + ") · " + formatBNB(value) + " BNB") + "，另加 Gas）");
+      setTxMsg("正在等待钱包确认…（" + (isFree ? "mintFree() · 0.0001 BNB" : "mint(" + qty + ") · " + formatBNB(value) + " BNB") + "，另加 Gas）");
       return window.ethereum.request({
         method: "eth_sendTransaction",
         params: [{ from: from, to: NFT_CONTRACT, value: "0x" + value.toString(16), data: data }]

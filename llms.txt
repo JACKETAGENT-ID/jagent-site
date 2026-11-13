@@ -7,13 +7,14 @@ Machine-readable data: https://jagent.pages.dev/agent.json
 Phase 1 is the NFT launch only — a market test. There is NO JAGENT token yet.
 The token (Phase 2) will be distributed later by SNAPSHOT of JAGENT NFT holders:
 each free-minted NFT held at the snapshot is planned to carry 15,000,000 JAGENT. Paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 2,500,000 (5% of batch 1) per batch, down to 15,000,000 each in batch 15.
+Total planned supply is 1,000,000,000,000 fixed, no token burn. Snapshot allocations total 495,000,000,000 (free 7,500,000,000 + paid 487,500,000,000). The remaining 505,000,000,000 follows a published agenda: 200,000,000,000 initial PancakeSwap liquidity (LP burned), 100,000,000,000 liquidity ladder (max 25,000,000,000 per month from month 2, LP burned), 75,000,000,000 community & airdrops (12-month vesting), 50,000,000,000 marketing & partnerships (6-12-month vesting), 40,000,000,000 strategic/CEX reserve (locked until a real need), 40,000,000,000 team & operations (3-month cliff, then 12-month linear vesting).
 
-## Contracts (deployed, Sourcify exact match)
+## Contracts (final addresses are set at deployment and verified on Sourcify, exact match)
 
 - NFT (JagentNFT, ERC-721): 0x78Fae56aeE7A4367c70d955feB1c70be45521F32
 - Market (JagentMarket, non-custodial): 0x7A35d8a907cd8da9d5a8bF3C220436370BB17220
 - Agent ID registry: 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
-- Payee (receives all mint proceeds and market fees): 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
+- Payee (free fees immediately; paid escrow released on finalize; market fees): 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
 - Metadata base: https://jagent.pages.dev/metadata/<tokenId>
 
 ## Sale phases
