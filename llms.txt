@@ -1,39 +1,37 @@
-# JAGENT — Agent Instructions
+# JAGENT — 智能体说明
 
-JAGENT is an Agent ID NFT project on BNB Smart Chain (chainId 56).
-Website: https://jagent.pages.dev
-Machine-readable data: https://jagent.pages.dev/agent.json
+JAGENT 是 BNB Smart Chain（chainId 56）上的 Agent ID NFT 项目。
+官网：https://jagent.pages.dev
+机器可读数据：https://jagent.pages.dev/agent.json
 
-Phase 1 is the NFT launch only — a market test. There is NO JAGENT token yet.
-The token (Phase 2) will be distributed later by SNAPSHOT of JAGENT NFT holders:
-each free-minted NFT held at the snapshot is planned to carry 15,000,000 JAGENT. Paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 2,500,000 (5% of batch 1) per batch, down to 15,000,000 each in batch 15.
-Total planned supply is 1,000,000,000,000 fixed, no token burn. Snapshot allocations total 495,000,000,000 (free 7,500,000,000 + paid 487,500,000,000). The remaining 505,000,000,000 follows a published agenda: 200,000,000,000 initial PancakeSwap liquidity (LP burned), 100,000,000,000 liquidity ladder (max 25,000,000,000 per month from month 2, LP burned), 75,000,000,000 community & airdrops (12-month vesting), 50,000,000,000 marketing & partnerships (6-12-month vesting), 40,000,000,000 strategic/CEX reserve (locked until a real need), 40,000,000,000 team & operations (3-month cliff, then 12-month linear vesting).
+第一阶段仅发售 NFT，作为市场测试。目前尚不存在 JAGENT 代币。
+代币（第二阶段）将于日后按 JAGENT NFT 持有人快照分配：
+快照时持有的每张免费铸造 NFT 计划携带 15,000,000 JAGENT。付费铸造 NFT 按批次计权益（按铸造顺序每 1,000 张为一批）：第 1 批每张 50,000,000 JAGENT，每批递减 2,500,000（第 1 批的 5%），至第 15 批每张 15,000,000。
+计划总供应量固定为 1,000,000,000,000，代币不设销毁。快照分配合计 495,000,000,000（免费 7,500,000,000 + 付费 487,500,000,000）。其余 505,000,000,000 按公开议程分配：初始 PancakeSwap 流动性 200,000,000,000（LP 销毁），流动性阶梯 100,000,000,000（自第 2 个月起每月最多 25,000,000,000，LP 销毁），社区与空投 75,000,000,000（12 个月线性解锁），市场与合作 50,000,000,000（6–12 个月线性解锁），战略/CEX 储备 40,000,000,000（锁定至实际需要时），团队与运营 40,000,000,000（3 个月悬崖期，其后 12 个月线性解锁）。
 
-## Contracts (final addresses are set at deployment and verified on Sourcify, exact match)
+## 合约（最终地址以部署时为准，部署后在 Sourcify 精确匹配验证）
 
-- NFT (JagentNFT, ERC-721): 0x78Fae56aeE7A4367c70d955feB1c70be45521F32
-- Market (JagentMarket, non-custodial): 0x7A35d8a907cd8da9d5a8bF3C220436370BB17220
-- Agent ID registry: 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
-- Payee (free fees immediately; paid escrow released on finalize; market fees): 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
-- Metadata base: https://jagent.pages.dev/metadata/<tokenId>
+- NFT（JagentNFT，ERC-721）：0x78Fae56aeE7A4367c70d955feB1c70be45521F32
+- 市场（JagentMarket，非托管）：0x7A35d8a907cd8da9d5a8bF3C220436370BB17220
+- Agent ID 注册表：0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
+- Payee 收款地址（免费费即时到账；付费托管款在 finalize 时释放；市场手续费）：0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
+- 元数据基础地址：https://jagent.pages.dev/metadata/<tokenId>
 
-## Sale phases
+## 发售阶段
 
-1. PENDING — before start (start = 2026-11-14T16:00:00Z = 15 Nov 2026 00:00 Beijing time). Nothing can be minted.
-2. FREE — from start until 24 hours after start (16 Nov 2026 00:00 Beijing time) or until the 500 free supply is gone.
-   The first 500 Agent IDs mint 1 NFT each; mintFree() costs exactly 0.0001 BNB (service fee, forwarded to the payee).
-3. PAID — after the free phase ends. 0.003 BNB per NFT via mint(qty), max 10 per Agent ID in total, cap 15,000 (15 batches x 1,000, by mint order). Paid payments are ESCROWED in the contract, not forwarded. FLOOR: if at least 4,000 paid NFTs are sold before the deadline (2026-11-16T16:00:00Z = 17 Nov 2026 00:00 Beijing time), anyone may call finalize() — the escrow is released to the payee, paid NFTs unlock (open trade), and minting continues to the cap with payments forwarded immediately. REFUND: if the deadline passes with fewer than 4,000 paid sold, minting stops forever and each paid NFT holder may call refundPaid(tokenId) to burn that NFT and reclaim exactly 0.003 BNB. Paid NFTs are non-transferable until finalization. The free service fee is forwarded to the payee immediately and is never refundable.
+1. 待开始 — 开始时间之前（开始 = 2026-11-14T16:00:00Z = 2026 年 11 月 15 日 00:00 北京时间）。不可铸造。
+2. 免费阶段 — 自开始起至开始后 24 小时（2026 年 11 月 16 日 00:00 北京时间）或 500 张免费名额用完为止。
+   前 500 个 Agent ID 各铸造 1 张 NFT；mintFree() 金额须精确为 0.0001 BNB（服务费，同笔交易内直接转给 payee）。
+3. 付费阶段 — 免费阶段结束后开启。每张 0.003 BNB，调用 mint(qty)，每个 Agent ID 累计最多 10 张，总上限 15,000 张（15 批 × 1,000 张，按铸造顺序）。付费款由合约托管，不即时转发。达标线：若在截止时间（2026-11-16T16:00:00Z = 2026 年 11 月 17 日 00:00 北京时间）前售出至少 4,000 张付费 NFT，任何人可调用 finalize()——托管款释放给 payee，付费 NFT 解锁（开放交易），铸造继续至上限且款项即时转发。退款：若截止时付费售出不足 4,000 张，铸造永久停止，每位付费 NFT 持有人可调用 refundPaid(tokenId) 销毁该 NFT 并取回整整 0.003 BNB。付费 NFT 在 finalize 前不可转让。免费服务费即时转给 payee，永不退还。
 
-Minting requires the calling wallet to hold a Binance Agent ID (checked on-chain against the registry).
-status() on the NFT contract returns (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode). phase: 0=pending, 1=free, 2=paid, 3=sold out, 4=failed/refund open.
+铸造要求调用钱包持有 Binance Agent ID（链上向注册表校验）。
+NFT 合约的 status() 返回 (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode)。phase：0=待开始，1=免费阶段，2=付费阶段，3=售罄，4=未达标（退款开放）。
 
-## Market
+## 市场
 
-Non-custodial: the NFT stays in the seller's wallet until sold. list(tokenId, priceWei) after approving
-the market for that token; buy(tokenId) with the exact price moves the NFT seller -> buyer;
-2.5% of the price goes to the payee, 97.5% to the seller. cancelListing(tokenId) is seller-only. Paid-minted NFTs are transfer-locked until the sale is finalized, so they cannot change hands before open trade.
+非托管：NFT 在售出前始终留在卖家钱包。先授权市场合约操作该 tokenId，再调用 list(tokenId, priceWei) 挂单；买家以精确价格调用 buy(tokenId)，NFT 直接由卖家转给买家；成交价的 2.5% 归 payee，97.5% 归卖家。cancelListing(tokenId) 仅卖家可调用。付费铸造的 NFT 在发售 finalize 前被锁定转让，开放交易前不可易手。
 
-## Safety
+## 安全
 
-- No approvals, permits, or allowances are needed to mint. Values must match exactly or the call reverts.
-- The NFT contract has no owner, no pause, no upgrade path, and no withdrawal function; proceeds are forwarded to the payee in the same transaction as the mint.
+- 铸造无需任何 approval、permit 或 allowance。金额必须精确匹配，否则调用回滚。
+- NFT 合约无 owner、无暂停、无升级路径、无提现函数；免费费在铸造交易的同笔内转给 payee，付费款按上述托管/释放/退款规则处理。

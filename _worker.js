@@ -7,28 +7,28 @@
 // FREEZE RULE: the pool (size and order) must not change after the sale
 // starts, or already-minted tokens would change their image.
 const POOL = [
-  { model: 'Bomber', colorway: 'Midnight Black', file: 'pool-0.jpg' },
-  { model: 'Varsity', colorway: 'Royal Navy', file: 'pool-1.jpg' },
-  { model: 'Racing', colorway: 'Crimson Red', file: 'pool-2.jpg' },
-  { model: 'Denim', colorway: 'Denim Blue', file: 'pool-3.jpg' }
+  { model: '飞行夹克', colorway: '午夜黑', file: 'pool-0.jpg' },
+  { model: '棒球夹克', colorway: '皇家海军蓝', file: 'pool-1.jpg' },
+  { model: '赛车夹克', colorway: '深红', file: 'pool-2.jpg' },
+  { model: '牛仔夹克', colorway: '牛仔蓝', file: 'pool-3.jpg' }
 ];
 
 // Each token also gets a color TINT (SVG hue-rotate filter over the pool
 // image) and its own number: 4 designs x 12 tints, every tokenId different.
 // `accent` colors the "#<id>" number in the image; `deg` is the hue rotation.
 const TINTS = [
-  { name: 'Original', deg: 0, accent: '#e8c15a' },
-  { name: 'Ember', deg: 30, accent: '#f08a3c' },
-  { name: 'Solar', deg: 60, accent: '#f2d13c' },
-  { name: 'Lime', deg: 90, accent: '#b7e33c' },
-  { name: 'Verdant', deg: 120, accent: '#3ce37a' },
-  { name: 'Jade', deg: 150, accent: '#3ce3b0' },
-  { name: 'Lagoon', deg: 180, accent: '#3cd0e3' },
-  { name: 'Azure', deg: 210, accent: '#3c8ce3' },
-  { name: 'Indigo', deg: 240, accent: '#5a5ae8' },
-  { name: 'Violet', deg: 270, accent: '#a05ae8' },
-  { name: 'Magenta', deg: 300, accent: '#e33cd0' },
-  { name: 'Rose', deg: 330, accent: '#e33c6e' }
+  { name: '原版', deg: 0, accent: '#e8c15a' },
+  { name: '余烬', deg: 30, accent: '#f08a3c' },
+  { name: '日光', deg: 60, accent: '#f2d13c' },
+  { name: '青柠', deg: 90, accent: '#b7e33c' },
+  { name: '翠绿', deg: 120, accent: '#3ce37a' },
+  { name: '翡翠', deg: 150, accent: '#3ce3b0' },
+  { name: '泻湖', deg: 180, accent: '#3cd0e3' },
+  { name: '蔚蓝', deg: 210, accent: '#3c8ce3' },
+  { name: '靛蓝', deg: 240, accent: '#5a5ae8' },
+  { name: '紫罗兰', deg: 270, accent: '#a05ae8' },
+  { name: '品红', deg: 300, accent: '#e33cd0' },
+  { name: '玫瑰', deg: 330, accent: '#e33c6e' }
 ];
 
 function mulberry32(seed) {
@@ -52,13 +52,13 @@ function metadataFor(id, base) {
   const d = designFor(id);
   return {
     name: `JAGENT #${id}`,
-    description: 'JAGENT NFT for Binance Agent ID holders on BNB Smart Chain. Phase 1 NFT mint — the holder receives this NFT only. The JAGENT token (Phase 2) will be distributed later by snapshot of NFT holders: free-minted NFTs carry 15,000,000 JAGENT each; paid-minted NFTs carry by batch (batch 1: 50,000,000 each, decreasing 2,500,000 per batch to 15,000,000 in batch 15). Jacket design and color tint are assigned deterministically from the tokenId at mint time (4 designs x 12 tints), and every token carries its own number.',
+    description: 'JAGENT NFT，面向 BNB Smart Chain 上的 Binance Agent ID 持有人。第一阶段 NFT 铸造——持有人仅获得本 NFT。JAGENT 代币（第二阶段）将于日后按 NFT 持有人快照分配：免费铸造 NFT 每张携带 15,000,000 JAGENT；付费铸造 NFT 按批次计（第 1 批每张 50,000,000，每批递减 2,500,000，至第 15 批每张 15,000,000）。夹克款式与色调在铸造时由 tokenId 确定性分配（4 款设计 x 12 种色调），每张 token 均带自己的编号。',
     image: `${base}/img/${id}.svg`,
     external_url: base,
     attributes: [
-      { trait_type: 'Model', value: d.model },
-      { trait_type: 'Colorway', value: d.colorway },
-      { trait_type: 'Tint', value: d.tint.name }
+      { trait_type: '型号', value: d.model },
+      { trait_type: '配色', value: d.colorway },
+      { trait_type: '色调', value: d.tint.name }
     ]
   };
 }

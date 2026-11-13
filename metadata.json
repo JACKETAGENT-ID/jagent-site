@@ -1,9 +1,9 @@
 {
   "name": "JAGENT NFT",
-  "description": "JAGENT NFT for Binance Agent ID holders on BNB Smart Chain. Phase 1 NFT mint. Phase 2: the JAGENT token will be distributed by snapshot of NFT holders - free-minted NFTs are planned to carry 15,000,000 JAGENT each at the snapshot; paid-minted NFTs carry by batch: 50,000,000 JAGENT each in batch 1, decreasing 5% (2,500,000) per batch to 15,000,000 in batch 15.",
+  "description": "JAGENT NFT，面向 BNB Smart Chain 上的 Binance Agent ID 持有人。第一阶段为 NFT 铸造。第二阶段：JAGENT 代币将按 NFT 持有人快照分配——免费铸造 NFT 在快照时每张计划携带 15,000,000 JAGENT；付费铸造 NFT 按批次计：第 1 批每张 50,000,000，每批递减 5%（2,500,000），至第 15 批每张 15,000,000。",
   "external_url": "https://jagent.pages.dev",
   "attributes": [
-    { "trait_type": "Project", "value": "JAGENT" },
-    { "trait_type": "Phase 2 entitlement", "value": "15,000,000 (free mint) / 50,000,000 down to 15,000,000 by batch (paid mint) JAGENT per NFT (snapshot)" }
+    { "trait_type": "项目", "value": "JAGENT" },
+    { "trait_type": "第二阶段权益", "value": "每张 NFT 15,000,000（免费铸造）/ 50,000,000 起按批次递减至 15,000,000（付费铸造）JAGENT（快照）" }
   ]
 }

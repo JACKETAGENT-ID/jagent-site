@@ -4,14 +4,14 @@
   "chain": "BNB Smart Chain",
   "chainId": 56,
   "website": "https://jagent.pages.dev",
-  "description": "Agent ID NFT mint (Phase 1). The NFT launch is the market test; the JAGENT token comes later (Phase 2) and will be distributed by snapshot of NFT holders. Free phase: the first 500 Agent IDs mint 1 NFT each for a 0.0001 BNB service fee. Paid phase: 0.003 BNB per NFT, max 10 per Agent ID, cap 15,000 in 15 batches of 1,000. Paid payments are ESCROWED in the NFT contract: if at least 4,000 paid NFTs (4 batches) are sold before 2026-11-17T00:00 Beijing time, anyone can call finalize() to release the escrow to the payee and open trading; if the deadline passes below the floor, paid NFT holders can burn each paid NFT via refundPaid(tokenId) and reclaim the full 0.003 BNB. After finalization, paid mint payments are forwarded to the payee inside the mint transaction. The free service fee is always forwarded to the payee immediately and is not refundable. No owner, no pause, no upgrade, no withdrawal function.",
+  "description": "Agent ID NFT 铸造（第一阶段）。本阶段仅发售 NFT，作为市场测试；JAGENT 代币将于第二阶段推出，按 NFT 持有人快照分配。免费阶段：前 500 个 Agent ID 各以 0.0001 BNB 服务费铸造 1 张 NFT。付费阶段：每张 0.003 BNB，每个 Agent ID 最多 10 张，总上限 15,000 张，分 15 批（每批 1,000 张）。付费款由 NFT 合约托管：若在 2026-11-17 00:00（北京时间）前售出至少 4,000 张付费 NFT（4 批），任何人可调用 finalize() 将托管款释放给 payee 并开放交易；若截止时低于达标线，付费 NFT 持有人可通过 refundPaid(tokenId) 销毁每张付费 NFT 并取回全额 0.003 BNB。finalize 之后，付费铸造款在铸造交易内直接转给 payee。免费服务费始终即时转给 payee，不予退还。合约无 owner、无暂停、无升级、无提现函数。",
   "contracts": {
     "nft": "0x78Fae56aeE7A4367c70d955feB1c70be45521F32",
     "market": "0x7A35d8a907cd8da9d5a8bF3C220436370BB17220",
     "agentIdRegistry": "0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F",
     "payee": "0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3"
   },
-  "verified": "Both contracts are verified on Sourcify with exact match (creation and runtime).",
+  "verified": "两份合约均已在 Sourcify 精确匹配验证（创建代码与运行时代码一致）。",
   "sale": {
     "startUTC": "2026-11-14T16:00:00Z",
     "freeEndUTC": "2026-11-15T16:00:00Z",
@@ -25,23 +25,23 @@
     "floorPaid": 4000,
     "floorDeadlineUTC": "2026-11-16T16:00:00Z",
     "floorDeadlineBeijing": "2026-11-17T00:00:00+08:00",
-    "paidBatches": "15 batches x 1000 paid mints, by mint order",
+    "paidBatches": "15 批 x 1000 张付费铸造，按铸造顺序",
     "startBeijing": "2026-11-15T00:00:00+08:00",
     "freeEndBeijing": "2026-11-16T00:00:00+08:00"
   },
   "agentActions": {
-    "checkStatus": "call status() on the NFT contract; returns (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode). phase: 0=pending, 1=free phase, 2=paid phase, 3=sold out, 4=failed (refund open)",
-    "mintFree": "contract call mintFree() on the NFT contract with value exactly 100000000000000 wei (0.0001 BNB); requires the calling wallet to hold a Binance Agent ID; 1 per Agent ID; only during the free phase",
-    "mint": "contract call mint(qty) on the NFT contract with value = qty * 3000000000000000 wei (0.003 BNB each); max 10 per Agent ID in total; only during the paid phase. The payment is escrowed in the contract until finalize() releases it (floor: 4000 paid sold before the deadline)",
-    "finalize": "call finalize() on the NFT contract (no value); permissionless; only when paidSold >= 4000 and not yet finalized; releases the entire escrowed BNB to the payee and unlocks paid NFTs for trading",
-    "refundPaid": "call refundPaid(tokenId) on the NFT contract (no value); only in refund mode (deadline passed with paidSold < 4000 and not finalized); the caller must own that paid-minted NFT; burns it and returns exactly 3000000000000000 wei (0.003 BNB) per NFT",
-    "checkMine": "call freeQuotaOf(address) and quotaOf(address) on the NFT contract for remaining quotas, or read the public mappings freeByAgent(agentIdUint256) / paidByAgent(agentIdUint256); isPaid(tokenId) tells whether a token was paid-minted (escrowed/refundable)",
-    "listOnMarket": "seller approves the market contract for the tokenId (approve or setApprovalForAll), then calls list(tokenId, priceWei) on the market contract",
-    "buyOnMarket": "call buy(tokenId) on the market contract with value = that token's listing price exactly; the NFT moves directly from seller to buyer, 2.5% fee to the payee. Note: paid-minted NFTs cannot be bought/sold until the sale is finalized (transfer lock in the NFT contract)"
+    "checkStatus": "调用 NFT 合约的 status()；返回 (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode)。phase：0=待开始，1=免费阶段，2=付费阶段，3=售罄，4=未达标（退款开放）",
+    "mintFree": "调用 NFT 合约的 mintFree()，金额须精确为 100000000000000 wei（0.0001 BNB）；调用钱包须持有 Binance Agent ID；每个 Agent ID 限 1 张；仅免费阶段可用",
+    "mint": "调用 NFT 合约的 mint(qty)，金额 = qty * 3000000000000000 wei（每张 0.003 BNB）；每个 Agent ID 累计最多 10 张；仅付费阶段可用。付款由合约托管，直至 finalize() 释放（达标线：截止前售出 4000 张付费 NFT）",
+    "finalize": "调用 NFT 合约的 finalize()（无金额）；无权限限制；仅当 paidSold >= 4000 且尚未 finalize 时可用；将全部托管 BNB 释放给 payee，并解锁付费 NFT 以供交易",
+    "refundPaid": "调用 NFT 合约的 refundPaid(tokenId)（无金额）；仅退款模式可用（截止已过、paidSold < 4000 且未 finalize）；调用者须拥有该付费铸造 NFT；销毁该 NFT 并退回每张精确 3000000000000000 wei（0.003 BNB）",
+    "checkMine": "调用 NFT 合约的 freeQuotaOf(address) 与 quotaOf(address) 查询剩余额度，或读取公开映射 freeByAgent(agentIdUint256) / paidByAgent(agentIdUint256)；isPaid(tokenId) 表示该 token 是否为付费铸造（托管/可退款）",
+    "listOnMarket": "卖家先授权市场合约操作该 tokenId（approve 或 setApprovalForAll），再调用市场合约的 list(tokenId, priceWei)",
+    "buyOnMarket": "以该 token 的挂单价格精确金额调用市场合约的 buy(tokenId)；NFT 直接由卖家转给买家，2.5% 手续费归 payee。注意：付费铸造的 NFT 在发售 finalize 前不可买卖（NFT 合约内的转让锁）"
   },
   "phase2Token": {
-    "status": "not yet created",
-    "distribution": "By snapshot of JAGENT NFT holders at token launch. Planned entitlement: 15,000,000 JAGENT per free-minted NFT; paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 5% of the batch-1 amount (2,500,000) per batch, batch 15 = 15,000,000 each. Planned supply 1,000,000,000,000 fixed: free-mint NFTs 7,500,000,000 (500 x 15M), paid NFTs 487,500,000,000 (15 batches), remaining 505,000,000,000 allocated by published agenda: 200,000,000,000 initial PancakeSwap liquidity (LP burned), 100,000,000,000 liquidity ladder (max 25,000,000,000/month from month 2, LP burned), 75,000,000,000 community & airdrops (12-month vesting), 50,000,000,000 marketing & partnerships (6-12-month vesting), 40,000,000,000 strategic/CEX reserve (locked until a real need), 40,000,000,000 team & operations (3-month cliff + 12-month linear vesting); no token burn."
+    "status": "尚未创建",
+    "distribution": "代币推出时按 JAGENT NFT 持有人快照分配。计划权益：每张免费铸造 NFT 15,000,000 JAGENT；付费铸造 NFT 按批次计（按铸造顺序每 1,000 张为一批）：第 1 批每张 50,000,000 JAGENT，每批递减第 1 批金额的 5%（2,500,000），第 15 批每张 15,000,000。计划供应量固定 1,000,000,000,000：免费铸造 NFT 7,500,000,000（500 x 15M），付费 NFT 487,500,000,000（15 批），其余 505,000,000,000 按公开议程分配：初始 PancakeSwap 流动性 200,000,000,000（LP 销毁），流动性阶梯 100,000,000,000（自第 2 个月起每月最多 25,000,000,000，LP 销毁），社区与空投 75,000,000,000（12 个月线性解锁），市场与合作 50,000,000,000（6–12 个月线性解锁），战略/CEX 储备 40,000,000,000（锁定至实际需要时），团队与运营 40,000,000,000（3 个月悬崖期 + 12 个月线性解锁）；代币不设销毁。"
   },
-  "safety": "Minting never requires approvals, permits, or allowances. The mint value must match exactly or the contract reverts. Listing on the market requires the seller's own approval of the market contract for that NFT."
+  "safety": "铸造永不要求 approval、permit 或 allowance。铸造金额必须精确匹配，否则合约回滚。在市场挂单需要卖家本人授权市场合约操作其 NFT。"
 }
