@@ -1,0 +1,47 @@
+{
+  "name": "JAGENT",
+  "symbol": "JAGENT",
+  "chain": "BNB Smart Chain",
+  "chainId": 56,
+  "website": "https://jagent.pages.dev",
+  "description": "Agent ID NFT mint (Phase 1). The NFT launch is the market test; the JAGENT token comes later (Phase 2) and will be distributed by snapshot of NFT holders. Free phase: the first 500 Agent IDs mint 1 NFT each for a 0.0001 BNB service fee. Paid phase: 0.003 BNB per NFT, max 10 per Agent ID, cap 15,000 in 15 batches of 1,000. Paid payments are ESCROWED in the NFT contract: if at least 4,000 paid NFTs (4 batches) are sold before 2026-11-17T00:00 Beijing time, anyone can call finalize() to release the escrow to the payee and open trading; if the deadline passes below the floor, paid NFT holders can burn each paid NFT via refundPaid(tokenId) and reclaim the full 0.003 BNB. After finalization, paid mint payments are forwarded to the payee inside the mint transaction. The free service fee is always forwarded to the payee immediately and is not refundable. No owner, no pause, no upgrade, no withdrawal function.",
+  "contracts": {
+    "nft": "0x78Fae56aeE7A4367c70d955feB1c70be45521F32",
+    "market": "0x7A35d8a907cd8da9d5a8bF3C220436370BB17220",
+    "agentIdRegistry": "0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F",
+    "payee": "0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3"
+  },
+  "verified": "Both contracts are verified on Sourcify with exact match (creation and runtime).",
+  "sale": {
+    "startUTC": "2026-11-14T16:00:00Z",
+    "freeEndUTC": "2026-11-15T16:00:00Z",
+    "freeSupply": 500,
+    "paidCap": 15000,
+    "freePerAgent": 1,
+    "paidPerAgent": 10,
+    "pricePerNFTBNB": "0.003",
+    "freeFeeBNB": "0.0001",
+    "marketFeeBps": 250,
+    "floorPaid": 4000,
+    "floorDeadlineUTC": "2026-11-16T16:00:00Z",
+    "floorDeadlineBeijing": "2026-11-17T00:00:00+08:00",
+    "paidBatches": "15 batches x 1000 paid mints, by mint order",
+    "startBeijing": "2026-11-15T00:00:00+08:00",
+    "freeEndBeijing": "2026-11-16T00:00:00+08:00"
+  },
+  "agentActions": {
+    "checkStatus": "call status() on the NFT contract; returns (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode). phase: 0=pending, 1=free phase, 2=paid phase, 3=sold out, 4=failed (refund open)",
+    "mintFree": "contract call mintFree() on the NFT contract with value exactly 100000000000000 wei (0.0001 BNB); requires the calling wallet to hold a Binance Agent ID; 1 per Agent ID; only during the free phase",
+    "mint": "contract call mint(qty) on the NFT contract with value = qty * 3000000000000000 wei (0.003 BNB each); max 10 per Agent ID in total; only during the paid phase. The payment is escrowed in the contract until finalize() releases it (floor: 4000 paid sold before the deadline)",
+    "finalize": "call finalize() on the NFT contract (no value); permissionless; only when paidSold >= 4000 and not yet finalized; releases the entire escrowed BNB to the payee and unlocks paid NFTs for trading",
+    "refundPaid": "call refundPaid(tokenId) on the NFT contract (no value); only in refund mode (deadline passed with paidSold < 4000 and not finalized); the caller must own that paid-minted NFT; burns it and returns exactly 3000000000000000 wei (0.003 BNB) per NFT",
+    "checkMine": "call freeQuotaOf(address) and quotaOf(address) on the NFT contract for remaining quotas, or read the public mappings freeByAgent(agentIdUint256) / paidByAgent(agentIdUint256); isPaid(tokenId) tells whether a token was paid-minted (escrowed/refundable)",
+    "listOnMarket": "seller approves the market contract for the tokenId (approve or setApprovalForAll), then calls list(tokenId, priceWei) on the market contract",
+    "buyOnMarket": "call buy(tokenId) on the market contract with value = that token's listing price exactly; the NFT moves directly from seller to buyer, 2.5% fee to the payee. Note: paid-minted NFTs cannot be bought/sold until the sale is finalized (transfer lock in the NFT contract)"
+  },
+  "phase2Token": {
+    "status": "not yet created",
+    "distribution": "By snapshot of JAGENT NFT holders at token launch. Planned entitlement: 15,000,000 JAGENT per free-minted NFT; paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 5% of the batch-1 amount (2,500,000) per batch, batch 15 = 15,000,000 each. Planned supply 1,000,000,000,000 fixed: free-mint NFTs 7,500,000,000 (500 x 15M), paid NFTs 487,500,000,000 (15 batches), liquidity pool 505,000,000,000 (entire remainder; no burn)."
+  },
+  "safety": "Minting never requires approvals, permits, or allowances. The mint value must match exactly or the contract reverts. Listing on the market requires the seller's own approval of the market contract for that NFT."
+}

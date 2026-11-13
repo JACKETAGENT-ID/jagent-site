@@ -1,0 +1,38 @@
+# JAGENT — Agent Instructions
+
+JAGENT is an Agent ID NFT project on BNB Smart Chain (chainId 56).
+Website: https://jagent.pages.dev
+Machine-readable data: https://jagent.pages.dev/agent.json
+
+Phase 1 is the NFT launch only — a market test. There is NO JAGENT token yet.
+The token (Phase 2) will be distributed later by SNAPSHOT of JAGENT NFT holders:
+each free-minted NFT held at the snapshot is planned to carry 15,000,000 JAGENT. Paid-minted NFTs earn by batch (each 1,000 paid mints by mint order): batch 1 = 50,000,000 JAGENT each, decreasing by 2,500,000 (5% of batch 1) per batch, down to 15,000,000 each in batch 15.
+
+## Contracts (deployed, Sourcify exact match)
+
+- NFT (JagentNFT, ERC-721): 0x78Fae56aeE7A4367c70d955feB1c70be45521F32
+- Market (JagentMarket, non-custodial): 0x7A35d8a907cd8da9d5a8bF3C220436370BB17220
+- Agent ID registry: 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
+- Payee (receives all mint proceeds and market fees): 0xB5d7aec297705337F3e09Ec4F802a580EFfEa0D3
+- Metadata base: https://jagent.pages.dev/metadata/<tokenId>
+
+## Sale phases
+
+1. PENDING — before start (start = 2026-11-14T16:00:00Z = 15 Nov 2026 00:00 Beijing time). Nothing can be minted.
+2. FREE — from start until 24 hours after start (16 Nov 2026 00:00 Beijing time) or until the 500 free supply is gone.
+   The first 500 Agent IDs mint 1 NFT each; mintFree() costs exactly 0.0001 BNB (service fee, forwarded to the payee).
+3. PAID — after the free phase ends. 0.003 BNB per NFT via mint(qty), max 10 per Agent ID in total, cap 15,000 (15 batches x 1,000, by mint order). Paid payments are ESCROWED in the contract, not forwarded. FLOOR: if at least 4,000 paid NFTs are sold before the deadline (2026-11-16T16:00:00Z = 17 Nov 2026 00:00 Beijing time), anyone may call finalize() — the escrow is released to the payee, paid NFTs unlock (open trade), and minting continues to the cap with payments forwarded immediately. REFUND: if the deadline passes with fewer than 4,000 paid sold, minting stops forever and each paid NFT holder may call refundPaid(tokenId) to burn that NFT and reclaim exactly 0.003 BNB. Paid NFTs are non-transferable until finalization. The free service fee is forwarded to the payee immediately and is never refundable.
+
+Minting requires the calling wallet to hold a Binance Agent ID (checked on-chain against the registry).
+status() on the NFT contract returns (phase, freeSold, paidSold, minted, priceWei, freeFeeWei, startUnix, freeEndUnix, freeRemaining, paidRemaining, floorPaid, deadlineUnix, escrowedWei, finalized, refundMode). phase: 0=pending, 1=free, 2=paid, 3=sold out, 4=failed/refund open.
+
+## Market
+
+Non-custodial: the NFT stays in the seller's wallet until sold. list(tokenId, priceWei) after approving
+the market for that token; buy(tokenId) with the exact price moves the NFT seller -> buyer;
+2.5% of the price goes to the payee, 97.5% to the seller. cancelListing(tokenId) is seller-only. Paid-minted NFTs are transfer-locked until the sale is finalized, so they cannot change hands before open trade.
+
+## Safety
+
+- No approvals, permits, or allowances are needed to mint. Values must match exactly or the call reverts.
+- The NFT contract has no owner, no pause, no upgrade path, and no withdrawal function; proceeds are forwarded to the payee in the same transaction as the mint.
